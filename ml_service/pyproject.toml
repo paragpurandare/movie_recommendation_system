@@ -1,0 +1,22 @@
+[project]
+name = "ml-service"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "paragpurandare",email = "paragpurandare50@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+"fastapi>=0.118.3,<1.0.0",
+    "scikit-learn>=1.3.0,<2.0.0",
+    "pandas>=2.2.2,<3.0.0",
+    "numpy>=1.26.0,<2.0.0",
+    "joblib>=1.3.2,<2.0.0",
+    "uvicorn>=0.23.2,<1.0.0"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
