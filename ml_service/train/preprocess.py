@@ -1,8 +1,8 @@
 import pandas as pd
 
-def load_and_clean_movies(csv_path: str):
+def load_and_clean_movies(df):
     """Load and clean movies data for model training."""
-    df = pd.read_csv(csv_path)
+    
     df = df.dropna(subset=["id", "title"])
 
     # Fill missing values and ensure correct types
