@@ -1,0 +1,28 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const sqlPool = require('./config/sql_db');
+const dotenv = require('dotenv');
+const apiRoutes = require('./routes/api');
+
+const app = express();
+const path = require('path');
+dotenv.config();
+
+app.use(bodyParser.json());
+app.use(cors());
+app.use(express.json());
+
+
+const PORT = process.env.PORT || 5000;
+
+
+
+
+app.use('/api', apiRoutes);
+
+
+app.listen(PORT, async () => {
+    console.log(`Server is running on port ${PORT}`);
+});
+
