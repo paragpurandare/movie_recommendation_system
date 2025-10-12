@@ -20,6 +20,7 @@ lerna-debug.log*
 # Local env files
 *.local
 
+
 # Editor directories and files
 .vscode/
 !.vscode/extensions.json
@@ -42,3 +43,4 @@ ml_service/poetry.lock
 
 # Data files (optional, if you want to ignore raw data)
 ml_service/data/*.csv
+ml_service/artifacts/*
