@@ -1,9 +1,20 @@
 const express = require('express');
 const router = express.Router();
 
+const authController = require('../controllers/authController');
+const { authenticateToken } = require('../middlewares/auth');
 const moviesController = require('../controllers/moviesController');
+
 // const ratingsController = require('../controllers/ratingsController');
 // const userController = require('../controllers/userController');
+
+// User Profile endpoints signup , login
+router.post('/auth/login', authController.login);
+router.post('/auth/register', authController.register);
+router.post('/auth/google', authController.googleLogin);
+router.get('/auth/profile', authenticateToken, (req, res) => {
+    res.json({ user: req.user });
+});
 
 //Movies endpoints
 router.get('/movies', moviesController.handleGetAllMovies);
@@ -17,9 +28,7 @@ router.get('/search', moviesController.handleSearchMovies);
 // router.put('/ratings/:id', ratingsController.handleUpdateRating);
 // router.delete('/ratings/:id', ratingsController.handleDeleteRating);
 
-// User Profile endpoints signup , login
-// router.post('/user/signup', userController.handleUserSignup);
-// router.post('/user/login', userController.handleUserLogin);
+
 
 
 module.exports = router;
