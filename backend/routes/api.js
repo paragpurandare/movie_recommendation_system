@@ -17,9 +17,9 @@ router.get('/auth/profile', authenticateToken, (req, res) => {
 });
 
 //Movies endpoints
-router.get('/movies', moviesController.handleGetAllMovies);
-router.get('/movies/:id', moviesController.handleGetMovieById);
-router.get('/search', moviesController.handleSearchMovies);
+router.get('/movies', authenticateToken, moviesController.handleGetAllMovies);
+router.get('/movies/:id', authenticateToken,moviesController.handleGetMovieById);
+router.get('/search', authenticateToken,moviesController.handleSearchMovies);
 
 // Ratings endpoints
 // router.get('/ratings', ratingsController.handleGetAllRatings);

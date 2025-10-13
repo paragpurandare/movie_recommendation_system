@@ -53,9 +53,15 @@ exports.login = async (req, res) => {
 };
 
 // Google OAuth Login
+// controllers/authController.js - Add this to handle Google OAuth
 exports.googleLogin = async (req, res) => {
     try {
-        const { googleId, email, name, avatar } = req.body;
+        const { credential } = req.body;
+
+        // Decode Google JWT on backend
+        const payload = JSON.parse(Buffer.from(credential.split('.')[1], 'base64').toString());
+
+        const { sub: googleId, email, name, picture: avatar } = payload;
 
         let user = await pool.query(
             'SELECT * FROM users WHERE email = $1 OR google_id = $2',
@@ -63,12 +69,12 @@ exports.googleLogin = async (req, res) => {
         );
 
         if (user.rows.length === 0) {
-            // Generate unique integer ID from UUID bytes
+            // Generate unique ID for new user
             const uniqueId = generateUniqueIntegerId();
-            
+
             const newUser = await pool.query(
-                'INSERT INTO users (id, email, name, google_id, avatar_url, created_at) VALUES ($1, $2, $3, $4, $5, NOW()) RETURNING *',
-                [uniqueId, email, name, googleId, avatar]
+                'INSERT INTO users (id, email, name, google_id, avatar_url, username, created_at) VALUES ($1, $2, $3, $4, $5, $6, NOW()) RETURNING *',
+                [uniqueId, email, name, googleId, avatar, name]
             );
             user = newUser;
         }
