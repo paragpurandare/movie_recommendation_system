@@ -19,6 +19,7 @@ lerna-debug.log*
 
 # Local env files
 *.local
+*.env
 
 
 # Editor directories and files
