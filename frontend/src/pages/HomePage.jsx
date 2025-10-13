@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Navbar from "../components/Navbar";
-import RateLimitedUI from "../components/RateLimitedUI";
+import RateLimitedUI from "../components/RateLimitedUi";
 import { useEffect } from "react";
 import api from "../lib/axios";
 import toast from "react-hot-toast";
@@ -37,24 +37,39 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-base-200">
       <Navbar />
 
-      {isRateLimited && <RateLimitedUI />}
+      {isRateLimited && (
+        <div className="max-w-6xl mx-auto px-6 pt-8">
+          <RateLimitedUI />
+        </div>
+      )}
 
-      <div className="max-w-14xl mx-auto my-8 p-8 pt-4 mt-6">
-        {loading && <div className="text-center text-primary py-10">Loading movies...</div>}
-
-        {movies.length === 0 && !isRateLimited && <MoviesNotFound />}
-
-        {movies.length > 0 && !isRateLimited && (
-          <div className="grid grid-cols-4 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            {movies.map((movie) => (
-              <MovieCard key={movie.id} movie={movie} setMovies={setMovies} />
-            ))}
+      <main className="max-w-7xl mx-auto px-6 py-8">
+        {loading && (
+          <div className="flex flex-col items-center justify-center py-20 space-y-4">
+            <div className="loading loading-spinner loading-lg text-primary"></div>
+            <p className="text-lg text-base-content/70">Loading movies...</p>
           </div>
         )}
-      </div>
+
+        {!loading && movies.length === 0 && !isRateLimited && <MoviesNotFound />}
+
+        {!loading && movies.length > 0 && !isRateLimited && (
+          <>
+            <div className="mb-8">
+              <h1 className="text-4xl font-bold text-primary mb-2">Featured Movies</h1>
+              <p className="text-base-content/70">Discover the latest and greatest films</p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {movies.map((movie) => (
+                <MovieCard key={movie.id} movie={movie} />
+              ))}
+            </div>
+          </>
+        )}
+      </main>
     </div>
   );
 };

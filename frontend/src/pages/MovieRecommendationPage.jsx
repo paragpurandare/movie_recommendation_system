@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import api from "../lib/axios";
-import { ArrowLeftIcon, LoaderIcon } from "lucide-react";
+import { ArrowLeftIcon, StarIcon, CalendarIcon, TagIcon, TrendingUpIcon } from "lucide-react";
 import MovieCard from "../components/MovieCard";
+import Navbar from "../components/Navbar";
+import PosterCard from "../components/posterCard";
 
 const MovieRecommendationPage = () => {
   const [movie, setMovie] = useState(null);
@@ -34,59 +36,86 @@ const MovieRecommendationPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-        <LoaderIcon className="animate-spin text-indigo-400 w-12 h-12" />
+      <div className="min-h-screen bg-base-200">
+        <Navbar />
+        <div className="flex flex-col items-center justify-center py-20 space-y-4">
+          <div className="loading loading-spinner loading-lg text-primary"></div>
+          <p className="text-lg text-base-content/70">Loading movie details...</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="flex items-center justify-between mb-8">
-          <Link to="/" className="flex items-center gap-2 text-indigo-500 hover:underline font-semibold">
-            <ArrowLeftIcon className="h-5 w-5" />
-            Back to Movies
-          </Link>
-        </div>
+    <div className="min-h-screen bg-base-200">
+      <Navbar />
 
-        {/* Selected Movie */}
+      <main className="max-w-7xl mx-auto px-6 py-8">
+        <Link
+          to="/"
+          className="inline-flex items-center gap-2 text-primary hover:text-primary-focus font-semibold mb-8 transition-colors"
+        >
+          <ArrowLeftIcon className="h-5 w-5" />
+          Back to Movies
+        </Link>
+
         {movie && (
-          <div className="bg-white rounded-xl shadow-lg flex flex-col md:flex-row items-center gap-8 p-6 mb-10">
-            <img
-              src={movie.poster_path || "/fallback-poster.png"}
-              alt={movie.title}
-              className="rounded-xl w-52 h-72 object-cover shadow"
-              onError={(e) => { e.target.src = "/fallback-poster.png"; }}
-            />
-            <div className="flex-1">
-              <h2 className="font-bold text-2xl text-gray-900 mb-4">{movie.title}</h2>
-              <div className="flex flex-wrap gap-3 mb-2">
-                <span className="flex items-center bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-semibold">
-                  {movie.genre}
-                </span>
-                <span className="flex items-center bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-semibold">
-                  {movie.popularity} Popularity
-                </span>
-                <span className="flex items-center bg-yellow-300 text-black px-3 py-1 rounded-full text-sm font-bold">
-                  IMDB {movie.vote_average}
-                </span>
-                <span className="flex items-center bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-semibold">
-                  {movie.release_date?.slice(0, 10)}
-                </span>
+          <div className="bg-base-100 rounded-2xl shadow-2xl p-8 mb-12">
+            <div className="flex flex-col md:flex-row gap-8">
+              <div className="flex-shrink-0">
+                <PosterCard
+                  movieId={movie.id}
+                  title={movie.title}
+                  className="rounded-xl w-full md:w-64 h-96 shadow-xl"
+                />
+              </div>
+
+              <div className="flex-1 space-y-6">
+                <div>
+                  <h1 className="text-4xl font-bold text-primary mb-3">{movie.title}</h1>
+                  <p className="text-base-content/70 text-lg">Movie Details</p>
+                </div>
+
+                <div className="flex flex-wrap gap-3">
+                  <span className="badge badge-primary badge-lg gap-2">
+                    <TagIcon className="w-4 h-4" />
+                    {movie.genre}
+                  </span>
+                  <span className="badge badge-accent badge-lg gap-2">
+                    <StarIcon className="w-4 h-4" />
+                    {movie.vote_average} IMDB
+                  </span>
+                  <span className="badge badge-outline badge-lg gap-2">
+                    <TrendingUpIcon className="w-4 h-4" />
+                    {movie.popularity}
+                  </span>
+                  <span className="badge badge-outline badge-lg gap-2">
+                    <CalendarIcon className="w-4 h-4" />
+                    {movie.release_date?.slice(0, 4)}
+                  </span>
+                </div>
+
+                {movie.overview && (
+                  <div className="prose prose-sm max-w-none">
+                    <p className="text-base-content/200">{movie.overview}</p>
+                  </div>
+                )}
               </div>
             </div>
           </div>
         )}
 
-        {/* Recommendations */}
-        <h2 className="mb-6 text-xl font-bold text-gray-800">Recommended Movies</h2>
-        <div className="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {recommendations.map((rec) => (
-            <MovieCard key={rec.id} movie={rec} />
-          ))}
-        </div>
-      </div>
+        {recommendations.length > 0 && (
+          <div>
+            <h2 className="text-3xl font-bold text-primary mb-6">Recommended Movies</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {recommendations.map((rec) => (
+                <MovieCard key={rec.id} movie={rec} showSimilarity={true} />
+              ))}
+            </div>
+          </div>
+        )}
+      </main>
     </div>
   );
 };
