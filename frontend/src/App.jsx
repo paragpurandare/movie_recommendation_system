@@ -10,8 +10,8 @@ const App = () => {
     <div className="min-h-screen bg-base-200">
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/search" element={<SearchPage />} />
         <Route path="/movie/:id" element={<MovieRecommendationPage />} />
+        <Route path="/search" element={<SearchPage />} />
       </Routes>
     </div>
   );

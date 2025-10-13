@@ -4,7 +4,7 @@ import api from "../lib/axios";
 import { ArrowLeftIcon, StarIcon, CalendarIcon, TagIcon, TrendingUpIcon } from "lucide-react";
 import MovieCard from "../components/MovieCard";
 import Navbar from "../components/Navbar";
-import PosterCard from "../components/posterCard";
+import PosterCard from "../components/posterCard";  
 
 const MovieRecommendationPage = () => {
   const [movie, setMovie] = useState(null);

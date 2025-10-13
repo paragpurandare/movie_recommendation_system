@@ -2,30 +2,9 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { StarIcon, CalendarIcon, TagIcon, TrendingUpIcon, HeartIcon } from "lucide-react";
-
-const TMDB_API_KEY = "c7ec19ffdd3279641fb606d19ceb9bb1";
+import PosterCard from "./PosterCard";
 
 const MovieCard = ({ movie, showSimilarity = false }) => {
-  const [posterUrl, setPosterUrl] = useState("");
-
-  useEffect(() => {
-    const fetchPoster = async () => {
-      try {
-        const res = await axios.get(
-          `https://api.themoviedb.org/3/movie/${movie.id}?api_key=${TMDB_API_KEY}&language=en-US`
-        );
-        const posterPath = res.data.poster_path;
-        if (posterPath) {
-          setPosterUrl(`https://image.tmdb.org/t/p/w500${posterPath}`);
-        } else {
-          setPosterUrl("/fallback-poster.png");
-        }
-      } catch {
-        setPosterUrl("/fallback-poster.png");
-      }
-    };
-    fetchPoster();
-  }, [movie.id]);
 
   return (
     <Link
@@ -33,10 +12,10 @@ const MovieCard = ({ movie, showSimilarity = false }) => {
       className="bg-white rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 overflow-hidden group w-full max-w-sm"
     >
       <figure className="relative overflow-hidden">
-        <img
-          src={posterUrl || "/fallback-poster.png"}
-          alt={movie.title}
-          className="w-full h-96 object-cover group-hover:scale-105 transition-transform duration-300"
+        <PosterCard
+          movieId={movie.id}
+          title={movie.title}
+          className="rounded-xl w-full md:w-64 h-96 shadow-xl object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
