@@ -40,7 +40,13 @@ def recommend_by_movie(id: int, top_n: int = 5):
         mid = int(full_movies.iloc[i]["id"])
         title = full_movies.iloc[i]["title"]
         sim = round(float(scaled_sim_scores[i]), 2)
-        recs.append({"id": mid, "title": title, "similarity_score": sim})
+        #we want genre but it's not in the csv, we have combined
+        genre = full_movies.iloc[i]["tags"].split(",")[0] if pd.notna(full_movies.iloc[i]["tags"]) else "Unknown" 
+        popularity = full_movies.iloc[i]["popularity"]
+        vote_average = full_movies.iloc[i]["vote_average"]
+        release_date = full_movies.iloc[i]["release_date"]
+
+        recs.append({"id": mid, "title": title, "similarity_score": sim, "genre": genre, "popularity": popularity, "vote_average": vote_average, "release_date": release_date})
 
     return {
         "input_movie": {"id": id, "title": full_movies.iloc[idx]["title"]},
@@ -64,9 +70,18 @@ def recommend_by_query(query: str = Query(..., min_length=2), top_n: int = 5):
         mid = int(full_movies.iloc[i]["id"])
         title = full_movies.iloc[i]["title"]
         sim = round(float(scaled_sim_scores[i]), 2)
-        recs.append({"id": mid, "title": title, "similarity_score": sim})
+        genre = full_movies.iloc[i]["tags"].split(",")[0] if pd.notna(full_movies.iloc[i]["tags"]) else "Unknown" 
+        popularity = full_movies.iloc[i]["popularity"]
+        vote_average = full_movies.iloc[i]["vote_average"]
+        release_date = full_movies.iloc[i]["release_date"]
+        recs.append({"id": mid, "title": title, "similarity_score": sim, "genre": genre, "popularity": popularity, "vote_average": vote_average, "release_date": release_date})
 
     return {
         "query": query,
         "recommendations": recs
     }
+
+#iloc[i]["tags"] what does this do? #it gets the tags column from the dataframe
+# but how we can get genre from the tags column? #we can split the tags by comma and get the first element as genre
+#so please do that in the code above #updated the code to get genre from tags column by splitting by comma and getting the first element
+#if pd.notna(full_movies.iloc[i]["tags"]) else "Unknown"  what is this extra line written? #this is to handle the case when tags is NaN, in that case we assign genre as Unknown

@@ -1,0 +1,27 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@plugin "daisyui";
+
+ @plugin "daisyui" {
+   themes: ["halloween"];
+ }
+
+/* You can add global styles to this file, and also import other style files want halloween theme to be applied here*/
+body {
+  @apply bg-base-200 text-base-content;
+}
+
+
+.scrollbar-hide {
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE 10+ */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, Opera */
+}
