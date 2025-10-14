@@ -103,20 +103,21 @@ CREATE TABLE movies (
     id INTEGER PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     overview TEXT,
+    genre TEXT,
+    original_language VARCHAR(10) NOT NULL,
     release_date DATE,
-    poster_path VARCHAR(255),
     vote_average DECIMAL(3,1),
-    genre_ids INTEGER[],
+    vote_count DECIMAL(2,1),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Ratings Table
 CREATE TABLE ratings (
     id INTEGER PRIMARY KEY,
-    user_id INTEGER REFERENCES users(id),
-    movie_id INTEGER REFERENCES movies(id),
-    rating DECIMAL(2,1) CHECK (rating >= 0 AND rating <= 10),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    userId INTEGER REFERENCES users(id),
+    movieId INTEGER REFERENCES movies(id),
+    rating DECIMAL(2,1),
+    created_at timestamp DEFAULT CURRENT_TIMESTAMP
 );
 ```
 
