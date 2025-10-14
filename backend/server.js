@@ -9,9 +9,11 @@ const app = express();
 const path = require('path');
 dotenv.config();
 
-app.use(bodyParser.json());
+
 app.use(cors());
+app.use(bodyParser.json());
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 
 const PORT = process.env.PORT || 5000;

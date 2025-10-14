@@ -19,6 +19,7 @@ lerna-debug.log*
 
 # Local env files
 *.local
+*.env
 
 
 # Editor directories and files
@@ -38,8 +39,10 @@ __pycache__/
 *.pyo
 *.pyd
 
-# Poetry lock file
+# Poetry and Frontend Backend lock files
 ml_service/poetry.lock
+frontend/package-lock.json
+backend/package-lock.json  
 
 # Data files (optional, if you want to ignore raw data)
 ml_service/data/*.csv
