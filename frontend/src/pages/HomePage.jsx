@@ -17,7 +17,7 @@ const HomePage = () => {
     const fetchMovies = async () => {
       try {
         const res = await api.get("/movies");
-        console.log(res.data);
+        // console.log(res.data);
         setMovies(res.data);
         setIsRateLimited(false);
       } catch (error) {

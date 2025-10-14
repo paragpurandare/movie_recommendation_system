@@ -11,6 +11,8 @@
     "start": "nodemon server.js"
   },
   "dependencies": {
+    "@upstash/ratelimit": "^2.0.6",
+    "@upstash/redis": "^1.35.5",
     "axios": "^1.12.2",
     "bcryptjs": "^3.0.2",
     "body-parser": "^2.2.0",

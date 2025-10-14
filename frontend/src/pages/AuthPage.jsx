@@ -85,45 +85,54 @@ const AuthPage = () => {
                     <div className="space-y-4">
                         {!isLogin && (
                             <div>
-                                <label className="block text-sm font-medium text-gray-700">
+                                <label htmlFor='name' className="block text-sm font-medium text-gray-700">
                                     Full Name
                                 </label>
                                 <input
+                                    id='name'
+                                    name='name'
                                     type="text"
                                     required={!isLogin}
                                     className="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                     placeholder="Enter your name"
                                     value={formData.name}
                                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                    autoComplete="name"
                                 />
                             </div>
                         )}
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700">
+                            <label htmlFor='email' className="block text-sm font-medium text-gray-700">
                                 Email address
                             </label>
                             <input
+                                id='email'
+                                name='email'
                                 type="email"
                                 required
                                 className="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                 placeholder="Enter your email"
                                 value={formData.email}
                                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                autoComplete="email"
                             />
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700">
+                            <label htmlFor='password' className="block text-sm font-medium text-gray-700">
                                 Password
                             </label>
                             <input
+                                id='password'
+                                name='password'
                                 type="password"
                                 required
                                 className="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                 placeholder="Enter your password"
                                 value={formData.password}
                                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                                autoComplete="current-password"
                             />
                         </div>
                     </div>
@@ -152,7 +161,12 @@ const AuthPage = () => {
                         <GoogleLogin
                             onSuccess={handleGoogleSuccess}
                             onError={handleGoogleError}
-                            useOneTap
+                            theme="outline"
+                            size="large"
+                            // Remove useOneTap to fix CSP and postMessage errors
+                            // useOneTap={false}
+                            text="signin_with"
+                            shape="rectangular"
                         />
                     </div>
 

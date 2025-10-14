@@ -44,12 +44,16 @@ const Navbar = () => {
 
         <form onSubmit={handleSearch} className="flex-1 flex justify-center mx-4">
           <div className="relative w-full max-w-md">
+            <label htmlFor="search" className="sr-only">Search movies, tags, genres</label>
             <input
+              id="search"
+              name="search"
               type="text"
               className="pl-10 pr-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-400 w-full"
               placeholder="Search movies, tags, genres..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
+              autoComplete="off"
             />
             <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-indigo-400 w-5 h-5" />
           </div>
