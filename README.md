@@ -127,16 +127,30 @@ CREATE TABLE ratings (
 ```bash
 cd frontend
 npm install
+
+
 ```
 
 ---
 
-## 4. Backend Setup
+## 4. Backend Setup create set env variables
 
 ```bash
 cd backend
+touch env
 npm install
 ```
+- Create a `.env` file in `backend` directory:
+  ```env
+  # JWT secret (generate a strong random string, e.g. using `openssl rand -hex 64`)
+JWT_SECRET=your-very-long-random-secret-key
+
+# Upstash Redis credentials (get from https://upstash.com)
+UPSTASH_REDIS_REST_URL=your-upstash-redis-url
+UPSTASH_REDIS_REST_TOKEN=your-upstash-redis-token
+  ```
+
+---
 
 
 ## 5. ML Service Setup
