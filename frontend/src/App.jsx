@@ -4,6 +4,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 import SearchPage from "./pages/searchPage";
 import MovieRecommendationPage from "./pages/MovieRecommendationPage";
 import AuthCallback from "./components/AuthCallback";
+import RatingsPage from "./pages/ratingsPage"
 
 const App = () => {
   return (
@@ -11,7 +12,8 @@ const App = () => {
         <Routes>
           <Route path="/" element={<AuthCallback />} />
           <Route path="/movie/:id" element={<MovieRecommendationPage />} />
-          <Route path="/search" element={<SearchPage />} />
+        <Route path="/search" element={<SearchPage />} />
+        <Route path="/ratings" element={<RatingsPage />} />
         </Routes>
     </AuthProvider>
       

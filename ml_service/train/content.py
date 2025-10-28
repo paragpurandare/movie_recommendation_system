@@ -3,7 +3,7 @@ import pandas as pd
 import joblib
 from sklearn.feature_extraction.text import CountVectorizer
 from train.preprocess import load_and_clean_movies
-from db import engine
+from .db import engine
 
 
 DATA_PATH = "./data/raw_movies.csv"

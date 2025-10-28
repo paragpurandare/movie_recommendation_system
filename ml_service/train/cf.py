@@ -2,7 +2,6 @@ import os
 import pandas as pd
 import joblib
 from sklearn.feature_extraction.text import CountVectorizer
-from train.preprocess import load_and_clean_movies
 from db import engine
 
 
@@ -12,6 +11,15 @@ ARTIFACTS_DIR = "artifacts"
 def import_ratings_to_db(csv_path, engine):
     try:
         df = pd.read_csv(csv_path)
+        # Rename columns to match your ratings table
+        df = df.rename(columns={
+            "userId": "userid",
+            "movieId": "movieid",
+            "rating": "rating"
+        })
+        # Optionally drop timestamp if not needed
+        if "timestamp" in df.columns:
+            df = df.drop(columns=["timestamp"])
         df.to_sql("ratings", engine, if_exists="append", index=False)
         print(f"✅ Imported {len(df)} ratings to database.")
     except Exception as e:

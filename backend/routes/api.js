@@ -5,7 +5,7 @@ const authController = require('../controllers/authController');
 const { authenticateToken } = require('../middlewares/auth');
 const moviesController = require('../controllers/moviesController');
 
-// const ratingsController = require('../controllers/ratingsController');
+const ratingsController = require('../controllers/ratingsController');
 // const userController = require('../controllers/userController');
 
 // User Profile endpoints signup , login
@@ -22,11 +22,11 @@ router.get('/movies/:id', authenticateToken,moviesController.handleGetMovieById)
 router.get('/search', authenticateToken,moviesController.handleSearchMovies);
 
 // Ratings endpoints
-// router.get('/ratings', ratingsController.handleGetAllRatings);
-// router.post('/ratings', ratingsController.handleAddRating);
-// router.get('/ratings/:id', ratingsController.handleGetRatingById);
-// router.put('/ratings/:id', ratingsController.handleUpdateRating);
-// router.delete('/ratings/:id', ratingsController.handleDeleteRating);
+router.get('/ratings', authenticateToken, ratingsController.handleGetAllRatings);
+router.post('/ratings', authenticateToken, ratingsController.handleAddRating);
+router.get('/ratings/:id', authenticateToken, ratingsController.handleGetRatingById);
+router.put('/ratings/:id', authenticateToken, ratingsController.handleUpdateRating);
+router.delete('/ratings/:id', authenticateToken, ratingsController.handleDeleteRating);
 
 
 
