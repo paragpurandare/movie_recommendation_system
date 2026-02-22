@@ -1,14 +1,30 @@
+import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-DATABASE_URL = "postgresql://movieuser:pp191919@localhost/moviedb"
+# Get DATABASE_URL from environment
+DATABASE_URL = os.getenv("DATABASE_URL")
 
+if not DATABASE_URL:
+    raise ValueError("DATABASE_URL is not set")
+
+# Create engine
+engine = create_engine(
+    DATABASE_URL,
+    connect_args={"sslmode": "require"}  # required for Render / cloud Postgres
+)
+
+# Test connection
 try:
-    engine = create_engine(DATABASE_URL)
     with engine.connect() as conn:
         print("✅ Connected to PostgreSQL database.")
 except Exception as e:
     print(f"❌ Database connection failed: {e}")
     engine = None
 
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+# Session
+SessionLocal = sessionmaker(
+    autocommit=False,
+    autoflush=False,
+    bind=engine
+)

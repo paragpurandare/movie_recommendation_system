@@ -50,7 +50,7 @@ exports.login = async (req, res) => {
         console.error('Login error:', error);
         res.status(500).json({ message: 'Login failed' });
     }
-};
+}; 
 
 // Google OAuth Login
 // controllers/authController.js - Add this to handle Google OAuth
