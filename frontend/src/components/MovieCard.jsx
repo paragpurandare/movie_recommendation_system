@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { StarIcon, CalendarIcon, TagIcon, TrendingUpIcon, HeartIcon } from "lucide-react";
-import PosterCard from "./posterCard";
+import PosterCard from "./PosterCard";
 
 const MovieCard = ({ movie, showSimilarity = false }) => {
 
