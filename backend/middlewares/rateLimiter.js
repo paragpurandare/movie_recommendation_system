@@ -13,7 +13,9 @@ const rateLimiter = async (req, res, next) => {
         next();
     } catch (error) {
         console.log("Rate limit error", error);
-        next(error);
+        // If rate limiter fails (e.g., Upstash unavailable), allow request through
+        // This prevents the entire service from crashing
+        next();
     }
 };
 
